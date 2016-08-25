@@ -1,0 +1,35 @@
+---
+- name: Copying Pip installation package
+  copy: src=get-pip.py dest=/home/{{ username }} mode=0754
+
+- name: Installing Pip
+  shell: python /home/{{ username }}/get-pip.py
+
+- name: Installing Virtual Environment
+  pip: name=virtualenv state=present
+
+- name: Installing Virtual Environment Wrapper
+  pip: name=virtualenvwrapper state=present
+
+- name: Making Virtual Environment
+  shell: virtualenv /home/{{ username }}/Envs/candidate
+  args:
+    executable: /bin/bash
+
+- name: Installing OS Packages for the project
+  apt: name={{item}} state=installed
+  with_items:
+    - libfreetype6-dev
+    - libmysqlclient-dev
+    - python-dev
+    - python-profiler
+    - clamav
+    - python-pyclamd
+    - clamav-daemon
+    - libssl-dev
+    - libffi-dev
+    - libxslt1-dev
+    - uuid-dev
+
+- name: Installing Python Packages in virtual environment
+  pip: chdir={{ project_path }} requirements=deploy/depends.txt virtualenv=/home/{{ username }}/Envs/candidate

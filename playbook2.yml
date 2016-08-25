@@ -1,0 +1,10 @@
+---
+- hosts: server1
+  become: yes
+  vars:
+    username: sysadmin
+    project_path: /home/sysadmin/builds/deploy_dir/qa_shine
+  roles:
+    #- git
+    #- django_setup
+    - ruby_setup

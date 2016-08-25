@@ -1,0 +1,3 @@
+---
+- name: install git version control
+  apt: name=git state=installed

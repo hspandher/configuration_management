@@ -1,0 +1,58 @@
+---
+- name: Installing Ruby dependencies
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+    - git-core
+    - curl
+    - zlib1g-dev
+    - build-essential
+    - libssl-dev
+    - libreadline-dev
+    - libyaml-dev
+    - libsqlite3-dev
+    - sqlite3
+    - libxml2-dev
+    - libxslt1-dev
+    - libcurl4-openssl-dev
+    - python-software-properties
+    - libffi-dev
+
+- name: Clone Rbenv Repository
+  git: repo=https://github.com/sstephenson/rbenv.git dest=/home/{{ username }}/.rbenv update=no
+  register: rbenv_clone
+
+- name: Clone Ruby Build Repository
+  git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/{{ username }}/.rbenv/plugins/ruby-build update=no
+  register: rb_build_clone
+
+- name: Create required directories
+  file: path=/home/{{ username }}/.rbenv/{{item}}  state=directory owner={{ username }}
+  with_items:
+    - shims
+    - versions
+
+- name: Add Rbenv to PATH
+  lineinfile:
+    dest=/etc/bash.bashrc
+    line='export PATH="/home/{{ username }}/.rbenv/bin:$PATH" && eval "$(rbenv init -)"'
+    state=present
+    owner={{ username }}
+    insertafter=EOF
+  when: rbenv_clone|changed
+
+- name: Add Ruby build to PATH
+  lineinfile:
+    dest=/etc/bash.bashrc
+    line='export PATH="/home/{{ username }}/.rbenv/plugins/ruby-build/bin:$PATH"'
+    state=present
+    owner={{ username }}
+    insertafter=EOF
+  when: rb_build_clone|changed
+
+- name: Install ruby 2.3.1
+  shell: rbenv install -s 2.3.1 && rbenv global 2.3.1
+  environment:
+    PATH: "/home/{{ username }}/.rbenv/bin:/home/{{ username }}/.rbenv/plugins/ruby-build/bin:{{ ansible_env.PATH }}"
+
+
+

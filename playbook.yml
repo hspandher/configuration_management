@@ -1,0 +1,5 @@
+---
+- hosts: server1
+  tasks:
+    - name: Install Git version control
+      apt: name=git state=installed
