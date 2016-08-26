@@ -1,5 +1,18 @@
 ---
 - hosts: server1
-  tasks:
-    - name: Install Git version control
-      apt: name=git state=installed
+  become: yes
+  vars:
+    username: sysadmin
+    server_user: www-data
+    server_group: www-data
+    project_path: /home/sysadmin/builds/deploy_dir/qa_shine
+    ruby_shims_path: /home/sysadmin/.rbenv/shims
+  roles:
+    # - git
+    # - sys_tweaks
+    # - uwsgi
+    # - uwsgi
+    #- git
+    - django_setup
+    # - ruby_setup
+    - uwsgi

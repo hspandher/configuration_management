@@ -1,0 +1,9 @@
+# Emperor uWSGI script
+
+description "uWSGI Emperor"
+start on runlevel [2345]
+stop on runlevel [06]
+
+respawn
+
+exec /home/{{ username }}/Envs/uwsgi/bin/uwsgi --emperor --daemonize /etc/uwsgi/emperor.ini

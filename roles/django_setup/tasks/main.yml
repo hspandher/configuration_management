@@ -13,6 +13,7 @@
 
 - name: Making Virtual Environment
   shell: virtualenv /home/{{ username }}/Envs/candidate
+  become: no
   args:
     executable: /bin/bash
 
@@ -32,4 +33,5 @@
     - uuid-dev
 
 - name: Installing Python Packages in virtual environment
+  become: no
   pip: chdir={{ project_path }} requirements=deploy/depends.txt virtualenv=/home/{{ username }}/Envs/candidate

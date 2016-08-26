@@ -54,5 +54,13 @@
   environment:
     PATH: "/home/{{ username }}/.rbenv/bin:/home/{{ username }}/.rbenv/plugins/ruby-build/bin:{{ ansible_env.PATH }}"
 
+- name: Installing Bundler
+  shell: gem install bundler
+  environment:
+    PATH: "/home/{{ username }}/.rbenv/bin:/home/{{ username }}/.rbenv/plugins/ruby-build/bin:{{ ansible_env.PATH }}"
+
+- name: Installing gems from project's Gemfile
+  bundler: gemfile={{ project_path }}/Gemfile state=present
+  become: no
 
 
