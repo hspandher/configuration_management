@@ -10,9 +10,7 @@
   roles:
     # - git
     # - sys_tweaks
-    # - uwsgi
-    # - uwsgi
-    #- git
-    - django_setup
+    # - django_setup
     # - ruby_setup
-    - uwsgi
+    # - uwsgi
+    - nginx_setup

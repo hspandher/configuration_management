@@ -1,0 +1,14 @@
+sudo apt-get install libluajit-5.1-dev, libpcre3 libpcre3-dev
+
+
+
+wget http://zlib.net/zlib-1.2.8.tar.gz
+$ tar -zxf zlib-1.2.8.tar.gz
+$ cd zlib-1.2.8
+$ ./configure
+$ make
+$ sudo make install
+
+
+
+
