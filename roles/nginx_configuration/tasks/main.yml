@@ -1,0 +1,29 @@
+---
+- name: Copying nginx conf
+  template: src=nginx.j2 dest=/etc/nginx/nginx.conf
+
+- name: Create required directories
+  file: path=/etc/nginx/{{item}}  state=directory owner={{ server_user }}
+  with_items:
+    - sites-enabled
+    - sites-available
+
+- name: Creating nginx available site configuration
+  template: src={{ project_name }}.j2 dest=/etc/nginx/sites-available/{{ project_name }}.conf
+
+- name: Creating symbolic link in sites-enabled
+  file:
+    src: /etc/nginx/sites-available/{{ project_name }}.conf
+    dest: /etc/nginx/sites-enabled/{{ project_name }}.conf
+    state: link
+
+- name: Copying uwsgi params
+  copy: src=uwsgi_params dest=/etc/nginx/ mode=664
+
+- name: Create nginx log directory
+  file: path=/var/log/nginx  state=directory owner={{ server_user }} group={{ server_group }}
+
+- name: Restarting nginx
+  service: name=nginx state=restarted
+
+

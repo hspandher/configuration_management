@@ -1,22 +1,22 @@
 upstream django {
-    server unix:///tmp/qa_shine.sock;
+    server unix:///tmp/{{ project_name }}.sock;
 }
 
 server {
-    listen          80;
+    listen          {{ nginx_port }};
     server_name         127.0.0.1;
     charset         utf-8;
 
-    root /home/sysadmin/builds/deploy_dir/qa_shine;
+    root {{ project_path }};
 
     client_max_body_size            8M;
 
     location /media {
-        alias /home/sysadmin/builds/deploy_dir/qa_shine/media;
+        alias {{ project_path }}/media;
     }
 
     location /static {
-        alias /home/sysadmin/builds/deploy_dir/qa_shine/static;
+        alias {{ project_path }}/static;
     }
     location / {
         uwsgi_pass django;

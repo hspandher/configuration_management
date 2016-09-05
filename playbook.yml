@@ -5,12 +5,15 @@
     username: sysadmin
     server_user: www-data
     server_group: www-data
+    project_name: candidate
     project_path: /home/sysadmin/builds/deploy_dir/qa_shine
     ruby_shims_path: /home/sysadmin/.rbenv/shims
+    nginx_port: 80
   roles:
     # - git
     # - sys_tweaks
     # - django_setup
     # - ruby_setup
     # - uwsgi
-    - nginx_setup
+    # - nginx_setup
+    - nginx_configuration
