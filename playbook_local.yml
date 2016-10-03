@@ -1,0 +1,32 @@
+---
+- hosts: local
+  become: yes
+  vars:
+    username: pavitpandher
+    server_user: www-data
+    server_group: www-data
+    project_name: candidate
+    project_path: /home/pavitpandher/code/shinecandidate
+    ruby_shims_path: /home/pavitpandher/.rbenv/shims
+    nginx_port: 80
+    domain: localshine.com
+    csm_path: /shineresume/CSM
+    sitemaps_path: /sitemaps/sitemaps_xml
+    sitemaps_path2: /sitemaps/sitemaps_listingpages
+    browsejobs_path: /sitemaps/browsejobs
+    sitemaps_2016: /sitemaps/sitemaps_2016
+  roles:
+    # - git
+    # - sys_tweaks
+    # - django_setup
+    # - ruby_setup
+    #- uwsgi
+    # - nginx_setup
+    - nginx_configuration
+    # - role: rvm_io.rvm1-ruby
+    #   becomes: no
+    #   tags: ruby
+    #   rvm1_gpg_key_server: 'hkp://keys.gnupg.net:80'
+    #   rvm1_install_path: "/home/{{ username }}/rvm"
+    #   rvm1_rubies:
+    #     - 'ruby-2.2.2'
