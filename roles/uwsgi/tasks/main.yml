@@ -1,47 +1,47 @@
 ---
-- name: Making uWSGI Virtual Environment
-  shell: virtualenv /home/{{ username }}/Envs/uwsgi
-  become: no
-  args:
-    executable: /bin/bash
+# - name: Making uWSGI Virtual Environment
+#   shell: virtualenv /home/{{ username }}/Envs/uwsgi
+#   become: no
+#   args:
+#     executable: /bin/bash
 
-- name: Installing OS Packages required by uwsgi
-  apt: name={{item}} state=installed
-  with_items:
-    - libpcre3
-    - libpcre3-dev
+# - name: Installing OS Packages required by uwsgi
+#   apt: name={{item}} state=installed
+#   with_items:
+#     - libpcre3
+#     - libpcre3-dev
 
-- name: Installing uWSGI
-  pip: name=uwsgi state=present virtualenv=/home/{{ username }}/Envs/uwsgi
-  become: no
+# - name: Installing uWSGI
+#   pip: name=uwsgi state=present virtualenv=/home/{{ username }}/Envs/uwsgi
+#   become: no
 
-- name: Installing uWSGI Monitoring tool
-  pip: name=uwsgitop state=present virtualenv=/home/{{ username }}/Envs/uwsgi
-  become: no
+# - name: Installing uWSGI Monitoring tool
+#   pip: name=uwsgitop state=present virtualenv=/home/{{ username }}/Envs/uwsgi
+#   become: no
 
-- name: Creating server user
-  user: name={{ server_user }} group={{ server_group }} groups={{ username }} shell=/bin/bash append=yes
+# - name: Creating server user
+#   user: name={{ server_user }} group={{ server_group }} groups={{ username }} shell=/bin/bash append=yes
 
-- name: Creating server_user group
-  group: name={{ server_group }} state=present
+# - name: Creating server_user group
+#   group: name={{ server_group }} state=present
 
-- name: Creating directory structure
-  file: path=/etc/uwsgi/vassals state=directory owner={{server_user}} group={{server_group}} mode=774
+# - name: Creating directory structure
+#   file: path=/etc/uwsgi/vassals state=directory owner={{server_user}} group={{server_group}} mode=774
 
-- name: Adding username to server_user group
-  user: name={{ username }} group={{ username }} groups={{ server_group }},adm append=yes
+# - name: Adding username to server_user group
+#   user: name={{ username }} group={{ username }} groups={{ server_group }},adm append=yes
 
-- name: Copying emperor uwsgi configuration
-  template: src=emperor.j2 dest=/etc/uwsgi/emperor.ini mode=664
+# - name: Copying emperor uwsgi configuration
+#   template: src=emperor.j2 dest=/etc/uwsgi/emperor.ini mode=664
 
 - name: Copying project uwsgi configuration
   template: src=candidate.j2 dest=/etc/uwsgi/vassals/candidate.ini mode=664
 
-- name: Creating emperor service
-  template: src=emperor_service.j2 dest=/etc/init/emperor.conf
+# - name: Creating emperor service
+#   template: src=emperor_service.j2 dest=/etc/init/emperor.conf
 
-- name: Creating log directory
-  file: path=/var/log/uwsgi/ state=directory owner={{server_user}} group={{server_group}} mode=774
+# - name: Creating log directory
+#   file: path=/var/log/uwsgi/ state=directory owner={{server_user}} group={{server_group}} mode=774
 
 - name: Starting emperor service
   service: name=emperor state=restarted

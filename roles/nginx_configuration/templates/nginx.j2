@@ -21,36 +21,43 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
+    log_format custom '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for" nocache:$upstream_cache_status' '$request_time $upstream_response_time $pipe';
+
     access_log  /var/log/nginx/access.log  main;
 
     #keepalive_timeout 20;
     #keepalive_requests 1000;
     sendfile        on;
     tcp_nopush      on;
-    tcp_nodelay     on;
-    
+    server_tokens off;
     client_body_buffer_size     128k;
     client_max_body_size        3m;
-    client_header_buffer_size   1k;
-    large_client_header_buffers  4 4k;
-    output_buffers               1 32k;
-    postpone_output              1460;
+    client_body_timeout    2m;
+    send_timeout           2m;
 
-    client_header_timeout  5m;
-    client_body_timeout    5m;
-    send_timeout           5m;
-
+    # cache file headers
     open_file_cache max=10000 inactive=5m;
     open_file_cache_valid 5m;
     open_file_cache_min_uses 1;
     open_file_cache_errors on;
 
     gzip on;
-    gzip_min_length 1000;
-    gzip_types application/x-javascript text/css application/javascript text/javascript text/plain text/xml application/json application/vnd.ms-fontobject application/x-font-opentype application/x-font-truetype application/x-font-ttf application/xml font/eot font/opentype font/otf image/svg+xml image/vnd.microsoft.icon;
+    gzip_vary on;
+    gzip_comp_level 6;
+    gzip_proxied any;
+    gzip_min_length 640;
+    gzip_static on;
+    gzip_types application/x-javascript text/css application/javascript text/javascript text/plain text/xml application/json application/vnd.ms-fontobject application/x-font-opentype application/x-font-truetype application/x-font-ttf application/xml application/xml+rss font/eot font/opentype font/otf image/svg+xml image/vnd.microsoft.icon;
     gzip_disable "MSIE [1-6]\.";
 
     reset_timedout_connection   on;
+
+
+    uwsgi_cache_path /sitemaps/webCache/cache levels=1:2 keys_zone=browse:80m max_size=2000m inactive=600m;
+    uwsgi_temp_path /run/ 1 2;
+
 
     include /etc/nginx/conf.d/*.conf;
 

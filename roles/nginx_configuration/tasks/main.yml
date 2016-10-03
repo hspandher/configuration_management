@@ -8,7 +8,13 @@
     - sites-enabled
     - sites-available
 
-- name: Creating nginx available site configuration
+- name: Creating cache directories
+  file: path=/sitemaps/webCache/{{item}} state=directory owner={{ server_user }}
+  with_items:
+    - cache
+    - tmp
+
+- name: Creating nginx project site configuration
   template: src={{ project_name }}.j2 dest=/etc/nginx/sites-available/{{ project_name }}.conf
 
 - name: Creating symbolic link in sites-enabled
