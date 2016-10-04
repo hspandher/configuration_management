@@ -18,6 +18,8 @@
     sitemaps_2016: /sitemaps/sitemaps_2016
     ssl_port: 443
     ssl_domain: mapi.shine.com
+    er_project_name: 'employee_referral'
+    employee_referral_domain: er.localshine.com
     employee_referral_server: http://127.0.0.1:9292
   roles:
     # - git

@@ -17,16 +17,25 @@
 - name: Creating nginx project site configuration
   template: src={{ project_name }}.j2 dest=/etc/nginx/sites-available/{{ project_name }}.conf
 
+- name: Copying employee referral project site configuration
+  template: src={{ er_project_name }}.j2 dest=/etc/nginx/sites-available/{{ er_project_name }}.conf
+
 - name: Copying uwsgi shared configuration files
   template: src=common_uwsgi.j2 dest=/etc/nginx/common_uwsgi
 
 - name: Copying common candidate configuration files
   template: src=common_candidate.j2 dest=/etc/nginx/common_candidate
 
-- name: Creating symbolic link in sites-enabled
+- name: Creating main project symbolic link in sites-enabled
   file:
     src: /etc/nginx/sites-available/{{ project_name }}.conf
     dest: /etc/nginx/sites-enabled/{{ project_name }}.conf
+    state: link
+
+- name: Creating Employee referral symbolic link in sites-enabled
+  file:
+    src: /etc/nginx/sites-available/{{ er_project_name }}.conf
+    dest: /etc/nginx/sites-enabled/{{ er_project_name }}.conf
     state: link
 
 - name: Copying uwsgi params
