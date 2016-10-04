@@ -14,110 +14,17 @@ server {
 server {
     listen          {{ nginx_port }};
     server_name         .{{ domain }};
-    charset         utf-8;
 
-    if  ($host !~* ^www\.)
-    {
-        rewrite  ^/(.*)$  $scheme://www.$host/$1 permanent;
-    }
-
-    root {{ project_path }};
-
-    client_max_body_size            8M;
-
-    rewrite ^/login/ $scheme://$host/myshine/login permanent;
-    rewrite ^/Job-Search/(.*).(aspx|html)$ /job-search/?utm_source=google&utm_medium=organic&utm_campaign=google&vendorid=151 permanent;
-    rewrite ^/(.*)\.aspx$ /?utm_source=google&utm_medium=organic&utm_campaign=google&vendorid=151 permanent;
-    rewrite ^/job-search/simple/login/ /myshine/login/ permanent;
-    rewrite ^/tangoe$ /microsite/latest-jobs/330934/;
-    rewrite ^/digital-marketing$ http://careerplus.shine.com/digital-marketing-2/ls351.html permanent;
-    rewrite ^/six-sigma$ http://careerplus.shine.com/six-sigma/ls363.html permanent;
-    rewrite ^/prince2$   http://careerplus.shine.com/prince2/ls603.html permanent;
-    rewrite ^/ifrs$  http://careerplus.shine.com/skill-courses/ifrs-certification-acca-course-linkedin-profile permanent;
-
-    location /media {
-        root {{ project_path }};
-        access_log off;
-    }
-
-    location /static {
-        root {{ project_path }};
-    }
-
-    location /favicon.ico {
-        alias {{ project_path }}/media/images/favicon.ico;
-    }
-
-    location /csmresume/ {
-        alias {{ csm_path }}/;
-    }
-
-    location ~ /.*_sitemap.xml {
-        root {{ sitemaps_path }};
-
-        error_page 404 = @listingpages;
-    }
-
-    location @listingpages {
-        root {{ sitemaps_path2 }};
-    }
-
-    location ~ /Listing-.*.xml.gz {
-        root {{ sitemaps_path2 }};
-    }
-
-    location ~ /.*.xml.gz {
-        root {{ sitemaps_path }};
-    }
-
-    location /akamai/ {
-        alias {{ project_path }}/akamai/;
-        access_log off;
-    }
-
-    location /akamaiTestStatic.html {
-        root {{ project_path }}/akamai;
-    }
-
-    location ~ /browsejobs/(.*)/(.*)-page-(.*)/(.*)$ {
-        default_type text/html;
-        add_header Content-Type text/html;
-        alias {{ browsejobs_path }}/$1/htmls/$2/$3;
-        index .html;
-        error_page 404 =  @browse_jobs_error404;
-    }
-
-    location @browse_jobs_error404 {
-        rewrite  .*  /browsejobs/ permanent;
-    }
-
-    location ~ /sitemaps/(.*.xml) {
-        root {{ sitemaps_2016 }};
-    }
-
-    location /lookup/ {
-        uwsgi_pass django;
-        include uwsgi_params;
-
-        uwsgi_cache browse;
-        uwsgi_cache_valid 200 302 10080m;
-        uwsgi_cache_valid 404 1m;
-        uwsgi_hide_header Set-Cookie;
-        uwsgi_hide_header Vary;
-        uwsgi_ignore_headers Set-Cookie Vary;
-        add_header X-Cached $upstream_cache_status;
-    }
-
-    location / {
-        uwsgi_pass django;
-        include uwsgi_params;
-
-        uwsgi_buffers 128 128k;
-        uwsgi_buffer_size 128k;
-
-        uwsgi_read_timeout       60;
-        uwsgi_connect_timeout    60;
-        uwsgi_send_timeout       60;
-        send_timeout             60;
-    }
+    include common_candidate;
 }
+
+# server {
+#     listen            {{ ssl_port }} ssl;
+#     server_name       {{ ssl_domain }};
+
+#     ssl on;
+#     ssl_certificate         /opt/cachingServer/.certs/shine.crt;
+#     ssl_certificate_key     /opt/cachingServer/.certs/shine.key;
+
+#     include common_candidate;
+# }

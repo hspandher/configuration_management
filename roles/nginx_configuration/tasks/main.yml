@@ -17,6 +17,12 @@
 - name: Creating nginx project site configuration
   template: src={{ project_name }}.j2 dest=/etc/nginx/sites-available/{{ project_name }}.conf
 
+- name: Copying uwsgi shared configuration files
+  template: src=common_uwsgi.j2 dest=/etc/nginx/common_uwsgi
+
+- name: Copying common candidate configuration files
+  template: src=common_candidate.j2 dest=/etc/nginx/common_candidate
+
 - name: Creating symbolic link in sites-enabled
   file:
     src: /etc/nginx/sites-available/{{ project_name }}.conf
