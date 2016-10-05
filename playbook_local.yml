@@ -9,7 +9,7 @@
     project_path: /home/pavitpandher/code/shinecandidate
     ruby_shims_path: /home/pavitpandher/.rbenv/shims
     nginx_port: 80
-    domain: localshine.com
+    domain: shine.com
     csm_path: /shineresume/CSM
     sitemaps_path: /sitemaps/sitemaps_xml
     sitemaps_path2: /sitemaps/sitemaps_listingpages
@@ -19,7 +19,7 @@
     ssl_port: 443
     ssl_domain: mapi.shine.com
     er_project_name: 'employee_referral'
-    employee_referral_domain: er.localshine.com
+    employee_referral_domain: er.shine.com
     employee_referral_server: http://127.0.0.1:9292
   roles:
     # - git

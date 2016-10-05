@@ -18,13 +18,13 @@ server {
     include common_candidate;
 }
 
-# server {
-#     listen            {{ ssl_port }} ssl;
-#     server_name       {{ ssl_domain }};
+server {
+    listen            {{ ssl_port }} ssl;
+    server_name       {{ ssl_domain }};
 
-#     ssl on;
-#     ssl_certificate         /opt/cachingServer/.certs/shine.crt;
-#     ssl_certificate_key     /opt/cachingServer/.certs/shine.key;
+    ssl on;
+    ssl_certificate         /opt/cachingServer/.certs/shine.crt;
+    ssl_certificate_key     /opt/cachingServer/.certs/shine.key;
 
-#     include common_candidate;
-# }
+    include common_candidate;
+}
