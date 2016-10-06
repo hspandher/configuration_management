@@ -1,51 +1,59 @@
 ---
-# - name: Installing Nginx dependencies
-#   apt: name={{item}} state=installed update_cache=yes
-#   with_items:
-#     - build-essential
-#     - libc6
-#     - libpcre3
-#     - libpcre3-dev
-#     - libpcrecpp0
-#     - libssl0.9.8
-#     - libssl-dev
-#     - zlib1g
-#     - zlib1g-dev
-#     - lsb-base
-#     - openssl
-#     - libssl-dev
-#     - libgeoip1
-#     - libgeoip-dev
-#     - google-perftools
-#     - libgoogle-perftools-dev
-#     - libperl-dev
-#     - libgd2-xpm-dev
-#     - libatomic-ops-dev
-#     - libxml2-dev
-#     - libxslt1-dev
-#     - python-dev
-#     - lua5.2
-#     - luajit
+- name: Installing Nginx dependencies
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+    - build-essential
+    - libc6
+    - libpcre3
+    - libpcre3-dev
+    - libpcrecpp0
+    - libssl0.9.8
+    - libssl-dev
+    - zlib1g
+    - zlib1g-dev
+    - lsb-base
+    - openssl
+    - libssl-dev
+    - libgeoip1
+    - libgeoip-dev
+    - google-perftools
+    - libgoogle-perftools-dev
+    - libperl-dev
+    - libgd2-xpm-dev
+    - libatomic-ops-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - python-dev
+    - lua5.2
+    - luajit
 
-# - name: Copying LuaJIT source code
-#   synchronize: src=luajit-2.0.4 dest=/home/{{ username }}/ mode=push
-#   become: no
+- name: Copying LuaJIT source code
+  synchronize: src=luajit-2.0.4 dest=/home/{{ username }}/ mode=push
+  become: no
 
-# - name: Installing LuaJIT
-#   make: chdir=/home/{{ username }}/luajit-2.0.4 target=install
+- name: Installing LuaJIT
+  make: chdir=/home/{{ username }}/luajit-2.0.4 target=install
 
-# - name: Copying nginx source code
-#   synchronize: src=nginx-1.10.1 dest=/home/{{ username }}/ mode=push
-#   become: no
+- name: Copying nginx source code
+  synchronize: src=nginx-1.10.1 dest=/home/{{ username }}/ mode=push
+  become: no
 
-# - name: Configuring nginx source code
-#   shell: chdir=/home/{{ username }}/nginx-1.10.1 ./configure --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=--pid-path=/tmp/nginx.pid --prefix=/opt/cachingServer --add-module=./modules_source/ngx_devel_kit-0.3.0 --add-module=./modules_source/form-input-nginx-module-0.12 --add-module=./modules_source/ngx_pagespeed-release-1.11.33.2-beta --with-http_gzip_static_module --add-module=./modules_source/headers-more-nginx-module-0.30 --add-module=./modules_source/lua-nginx-module-0.10.6rc1 --add-module=./modules_source/lua-upstream-cache-nginx-module-0.1.1 --with-http_ssl_module
+- name: Finding existing nginx installation
+  stat: path=/etc/nginx
+  register: nginx_installation
 
-# - name: Installing nginx
-#   make: chdir=/home/{{ username }}/nginx-1.10.1 target=install
+- name: Backing-up existing nginx installation
+  command: mv /etc/nginx /etc/nginx_backup
+  when: nginx_installation.stat.exists
 
-# - name: Creating Lua binary paths
-#   shell: ldconfig
+- name: Configuring nginx source code
+  shell: chdir=/home/{{ username }}/nginx-1.10.1 ./configure --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=--pid-path=/tmp/nginx.pid --prefix=/opt/cachingServer --add-module=./modules_source/ngx_devel_kit-0.3.0 --add-module=./modules_source/form-input-nginx-module-0.12 --add-module=./modules_source/ngx_pagespeed-release-1.11.33.2-beta --with-http_gzip_static_module --add-module=./modules_source/headers-more-nginx-module-0.30 --add-module=./modules_source/lua-nginx-module-0.10.6rc1 --add-module=./modules_source/lua-upstream-cache-nginx-module-0.1.1 --with-http_ssl_module
+
+- name: Installing nginx
+  make: chdir=/home/{{ username }}/nginx-1.10.1 target=install
+
+- name: Creating Lua binary paths
+  shell: ldconfig
 
 - name: Creating nginx service
   template: src=nginx_service.j2 dest=/etc/init/nginx.conf
