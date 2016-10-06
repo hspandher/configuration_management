@@ -46,6 +46,14 @@
   command: mv /etc/nginx /etc/nginx_backup
   when: nginx_installation.stat.exists
 
+- name: Finding nginx service conf
+  stat: path=/etc/init.d/nginx
+  register: nginx_service
+
+- name: Moving nginx service
+  command: mv /etc/init.d/nginx /etc/init.d/old_nginx
+  when: nginx_service.stat.exists
+
 - name: Configuring nginx source code
   shell: chdir=/home/{{ username }}/nginx-1.10.1 ./configure --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=--pid-path=/tmp/nginx.pid --prefix=/opt/cachingServer --add-module=./modules_source/ngx_devel_kit-0.3.0 --add-module=./modules_source/form-input-nginx-module-0.12 --add-module=./modules_source/ngx_pagespeed-release-1.11.33.2-beta --with-http_gzip_static_module --add-module=./modules_source/headers-more-nginx-module-0.30 --add-module=./modules_source/lua-nginx-module-0.10.6rc1 --add-module=./modules_source/lua-upstream-cache-nginx-module-0.1.1 --with-http_ssl_module
 
