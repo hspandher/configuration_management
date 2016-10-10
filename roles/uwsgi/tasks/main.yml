@@ -1,7 +1,7 @@
 ---
 - name: Making uWSGI Virtual Environment
-  shell: virtualenv /home/{{ username }}/Envs/uwsgi
-  become: no
+  shell: virtualenv {{ uwsgi_virtual_path }}
+  become: yes
   args:
     executable: /bin/bash
 
@@ -12,12 +12,12 @@
     - libpcre3-dev
 
 - name: Installing uWSGI
-  pip: name=uwsgi state=present virtualenv=/home/{{ username }}/Envs/uwsgi
-  become: no
+  pip: name=uwsgi state=present virtualenv={{ uwsgi_virtual_path }}
+  become: yes
 
 - name: Installing uWSGI Monitoring tool
   pip: name=uwsgitop state=present virtualenv=/home/{{ username }}/Envs/uwsgi
-  become: no
+  become: yes
 
 - name: Creating server user
   user: name={{ server_user }} group={{ server_group }} groups={{ username }} shell=/bin/bash append=yes

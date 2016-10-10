@@ -7,6 +7,8 @@
     server_group: www-data
     project_name: candidate
     project_path: /home/pavitpandher/code/shinecandidate
+    virtual_env_path: /home/pavitpandher/Envs/candidate/
+    uwsgi_virtual_path: /home/pavitpandher/Envs/uwsgi
     ruby_shims_path: /home/pavitpandher/.rbenv/shims
     nginx_port: 80
     domain: shine.com
