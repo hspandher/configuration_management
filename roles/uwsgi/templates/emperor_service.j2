@@ -6,4 +6,4 @@ stop on runlevel [06]
 
 respawn
 
-exec /home/{{ username }}/Envs/uwsgi/bin/uwsgi --emperor --daemonize /etc/uwsgi/emperor.ini
+exec {{ uwsgi_virtual_path }}/bin/uwsgi --emperor --daemonize /etc/uwsgi/emperor.ini
