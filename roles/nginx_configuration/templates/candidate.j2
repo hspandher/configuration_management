@@ -12,8 +12,15 @@ server {
 }
 
 server {
+    listen  {{ nginx_port }};
+    server_name  .{{ ansible_ssh_host }};
+
+    include common_candidate;
+}
+
+server {
     listen          {{ nginx_port }};
-    server_name         .{{ domain }} .{{ ansible_ssh_host }};
+    server_name         .{{ domain }};
 
     if  ($host !~* ^www\.)
     {
