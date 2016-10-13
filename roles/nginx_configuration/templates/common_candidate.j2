@@ -1,10 +1,5 @@
 charset         utf-8;
 
-if  ($host !~* ^www\.)
-{
-    rewrite  ^/(.*)$  $scheme://www.$host/$1 permanent;
-}
-
 root {{ project_path }};
 
 client_max_body_size            8M;
