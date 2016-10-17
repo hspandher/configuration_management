@@ -33,7 +33,7 @@
     # - uwsgi
     - uwsgi_configuration
     # - nginx_setup
-    # - nginx_configuration
+    - nginx_configuration
     # - role: rvm_io.rvm1-ruby
     #   becomes: no
     #   tags: ruby

@@ -94,6 +94,7 @@ location ~ /sitemaps/(.*.xml) {
 }
 
 location ~ /(lookup|search/api/v1/keyword)/ {
+    uwsgi_pass django;
     include common_uwsgi;
 
     uwsgi_cache browse;
@@ -107,5 +108,6 @@ location ~ /(lookup|search/api/v1/keyword)/ {
 }
 
 location / {
+    uwsgi_pass django;
     include common_uwsgi;
 }
