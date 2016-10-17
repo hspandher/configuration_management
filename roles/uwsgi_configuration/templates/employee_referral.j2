@@ -1,0 +1,10 @@
+[uwsgi]
+ini = /etc/uwsgi/vassals/common_config
+socket = /tmp/%n.sock
+chdir = {{er_project_path}}
+pidfile = /tmp/%n.pid
+wsgi-file = referral/wsgi.py
+processes = 4
+virtualenv = {{ er_virtualenv_path }}
+req-logger = file:/var/log/uwsgi/%n_request.log
+logger = file:/var/log/uwsgi/%n.log

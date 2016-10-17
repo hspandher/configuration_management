@@ -1,0 +1,20 @@
+---
+- name: Creating log directory
+  file: path=/var/log/uwsgi/ state=directory owner={{server_user}} group={{server_group}} mode=775
+
+- name: Creating log files
+  file: path=/var/log/uwsgi/{{item}}.log state=touch owner={{server_user}} group={{server_group}} mode=774
+  with_items:
+    - "{{ project_name }}_request"
+    - "{{ er_project_name }}_request"
+    - "{{ project_name }}"
+    - "{{ er_project_name }}"
+
+- name: Copying common configuration
+  template: src=common_config.j2 dest=/etc/uwsgi/vassals/common_config mode=664
+
+- name: Copying candidate project uwsgi configuration
+  template: src=candidate.j2 dest=/etc/uwsgi/vassals/candidate.ini mode=664
+
+- name: Copying employee referral uwsgi configuration
+  template: src=employee_referral.j2  dest=/etc/uwsgi/vassals/employee_referral.ini mode=664

@@ -1,0 +1,16 @@
+[uwsgi]
+uid = www-data
+gid = www-data
+listen = 10000
+socket-timeout = 60
+socket-send-timeout = 60
+socket-write-timeout = 60
+chmod-socket = 666
+master = true
+threads = 2
+harakiri = 30
+vacuum = true
+die-on-term = true
+env = LANG=en_US.UTF-8
+auto-procname = true
+rbrequire = rubygems

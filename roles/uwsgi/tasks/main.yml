@@ -34,17 +34,11 @@
 - name: Copying emperor uwsgi configuration
   template: src=emperor.j2 dest=/etc/uwsgi/emperor.ini mode=664
 
-- name: Copying project uwsgi configuration
-  template: src=candidate.j2 dest=/etc/uwsgi/vassals/candidate.ini mode=664
-
 - name: Creating emperor service
   template: src=emperor_service.j2 dest=/etc/init/emperor.conf
 
 - name: Creating log directory
   file: path=/var/log/uwsgi/ state=directory owner={{server_user}} group={{server_group}} mode=775
-
-- name: Creating log file
-  file: path=/var/log/uwsgi/{{ project_name }}.log state=touch owner={{server_user}} group={{server_group}} mode=774
 
 - name: Starting emperor service
   service: name=emperor state=restarted
