@@ -12,9 +12,21 @@
 
 - name: Copying common configuration
   template: src=common_config.j2 dest=/etc/uwsgi/vassals/common_config mode=664
+  register: common_configuration
 
 - name: Copying candidate project uwsgi configuration
   template: src=candidate.j2 dest=/etc/uwsgi/vassals/candidate.ini mode=664
+  register: project_configuration
 
 - name: Copying employee referral uwsgi configuration
   template: src=employee_referral.j2  dest=/etc/uwsgi/vassals/employee_referral.ini mode=664
+  register: referral_configuration
+
+- name: Restarting candidate project server if required
+  file: path=/etc/uwsgi/vassals/candidate.ini state=touch
+  when: common_configuration.changed and not project_configuration.changed
+
+- name: Restarting employee referral project server if required
+  file: path=/etc/uwsgi/vassals/employee_referral.ini state=touch
+  when: common_configuration.changed and not referral_configuration.changed
+
