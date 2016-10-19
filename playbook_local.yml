@@ -1,14 +1,14 @@
 ---
-- hosts: local
+- hosts: rak_dev
   become: yes
   vars:
-    username: pavitpandher
+    username: rak_dev
     server_user: www-data
     server_group: www-data
     project_name: candidate
-    project_path: /home/pavitpandher/code/shinecandidate
-    virtualenv_path: /home/pavitpandher/Envs/candidate/
-    uwsgi_virtual_path: /home/pavitpandher/Envs/uwsgi
+    project_path: /var/www/site/sumoplus
+    virtualenv_path: /opt/sumoplus
+    uwsgi_virtual_path: /opt/uwsgi
     ruby_shims_path: /home/pavitpandher/.rbenv/shims
     nginx_port: 80
     domain: shine.com
@@ -21,18 +21,18 @@
     ssl_port: 443
     ssl_domain: mapi.shine.com
     er_project_name: 'employee_referral'
-    er_project_path: /home/pavitpandher/code/shinereferral/project_referral
-    er_virtualenv_path: /home/pavitpandher/Envs/referral/
+    er_project_path: /var/www/site/shinereferral/project_referral
+    er_virtualenv_path: /opt/shinereferral
     employee_referral_domain: er.shine.com
     employee_referral_server: http://127.0.0.1:9292
   roles:
     # - git
-    # - sys_tweaks
+    #- sys_tweaks
     # - django_setup
     # - ruby_setup
-    # - uwsgi
+    #- uwsgi
     - uwsgi_configuration
-    # - nginx_setup
+    #- nginx_setup
     - nginx_configuration
     # - role: rvm_io.rvm1-ruby
     #   becomes: no

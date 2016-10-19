@@ -19,17 +19,17 @@
   pip: name=uwsgitop state=present virtualenv={{ uwsgi_virtual_path }}
   become: yes
 
-- name: Creating server user
-  user: name={{ server_user }} group={{ server_group }} groups={{ username }} shell=/bin/bash append=yes
+  #- name: Creating server user
+  #user: name={{ server_user }} group={{ server_group }} groups={{ username }} shell=/bin/bash append=yes
 
-- name: Creating server_user group
-  group: name={{ server_group }} state=present
+  #- name: Creating server_user group
+  #group: name={{ server_group }} state=present
 
 - name: Creating directory structure
   file: path=/etc/uwsgi/vassals state=directory owner={{server_user}} group={{server_group}} mode=774
 
-- name: Adding username to server_user group
-  user: name={{ username }} group={{ username }} groups={{ server_group }},adm append=yes
+  #- name: Adding username to server_user group
+  #user: name={{ username }} group={{ username }} groups={{ server_group }},adm append=yes
 
 - name: Copying emperor uwsgi configuration
   template: src=emperor.j2 dest=/etc/uwsgi/emperor.ini mode=664

@@ -6,3 +6,6 @@ hostlocal ansible_connection=local
 
 [rahul]
 rahul  ansible_ssh_host=10.24.8.175    ansible_ssh_user=ht
+
+[rak_dev]
+rak_dev ansible_ssh_host=172.22.65.136   ansible_ssh_user=rak_dev
