@@ -13,14 +13,9 @@ server {
 
 server {
     listen {{ nginx_port }};
-    server_name  {{ ansible_ssh_host }};
+    server_name  {{ domain }};
 
-    if  ($host !~* ^www\.)
-    {
-        rewrite  ^/(.*)$  $scheme://www.$host/$1 permanent;
-    }
-
-    include commmon_candidate;
+    rewrite  ^/(.*)$  $scheme://www.$host/$1 permanent;
 }
 
 server {
@@ -32,7 +27,7 @@ server {
 
 server {
     listen          {{ nginx_port }};
-    server_name         .{{ domain }};
+    server_name         *.{{ domain }};
 
     include common_candidate;
 }
