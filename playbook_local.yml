@@ -25,6 +25,8 @@
     er_virtualenv_path: /home/pavitpandher/Envs/referral/
     employee_referral_domain: er.shine.com
     employee_referral_server: http://127.0.0.1:9292
+    browsejobs_path: /sitemaps/browsejobs
+    browsejobs_path_new: /sitemaps/browsejobs_2016
   roles:
     # - git
     # - sys_tweaks
