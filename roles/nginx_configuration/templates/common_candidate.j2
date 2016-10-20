@@ -89,6 +89,24 @@ location @browse_jobs_error404 {
     rewrite  .*  /browsejobs/ permanent;
 }
 
+location ~ /jobs-by-(.*)-([\d]+)$ {
+    default_type text/html;
+    add_header Content-Type text/html;
+    alias {{ browsejobs_path_new }}/jobs-by-$1_$2.html;
+    error_page 404 =  @browse_jobs_new_error404;
+}
+
+location ~ /jobs-in-(.*)-([\d]+)$ {
+    default_type text/html;
+    add_header Content-Type text/html;
+    alias {{ browsejobs_path_new }}/jobs-in-$1_$2.html;
+    error_page 404 =  @browse_jobs_new_error404;
+}
+
+location @browse_jobs_new_error404 {
+    rewrite  .*  /job-search/ permanent;
+}
+
 location ~ /sitemaps/(.*.xml) {
     root {{ sitemaps_2016 }};
 }

@@ -7,4 +7,4 @@ wsgi-file = deploy/uwsgi.py
 processes = 20
 virtualenv = {{ virtualenv_path }}
 req-logger = file:/var/log/uwsgi/%n_request.log
-logger = file:/var/log/uwsgi/%n.log
+logger = syslog:can-uwsgi,local7
