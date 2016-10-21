@@ -1,4 +1,8 @@
 ---
+- name: Stopping any running nginx instances
+  service: name=nginx state=stopped
+  ignore_errors: yes
+
 - name: Installing Nginx dependencies
   apt: name={{item}} state=installed update_cache=yes allow_unauthenticated=yes
   with_items:
