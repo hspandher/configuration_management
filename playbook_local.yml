@@ -17,6 +17,7 @@
     sitemaps_path2: /sitemaps/sitemaps_listingpages
     sitemaps_job_path: /sitemaps/sitemaps_job
     browsejobs_path: /sitemaps/browsejobs
+    browsejobs_path_new: /sitemaps/browsejobs_2016
     sitemaps_2016: /sitemaps/sitemaps_2016
     ssl_port: 443
     ssl_domain: mapi.shine.com
@@ -25,8 +26,6 @@
     er_virtualenv_path: /home/pavitpandher/Envs/referral/
     employee_referral_domain: er.shine.com
     employee_referral_server: http://127.0.0.1:9292
-    browsejobs_path: /sitemaps/browsejobs
-    browsejobs_path_new: /sitemaps/browsejobs_2016
   roles:
     # - git
     # - sys_tweaks
@@ -35,7 +34,7 @@
     # - uwsgi
     - uwsgi_configuration
     # - nginx_setup
-    - nginx_configuration
+    #- nginx_configuration
     # - role: rvm_io.rvm1-ruby
     #   becomes: no
     #   tags: ruby
