@@ -6,4 +6,4 @@ pidfile = /tmp/%n.pid
 wsgi-file = deploy/uwsgi.py
 processes = 20
 virtualenv = {{ virtualenv_path }}
-logger = syslog:can-uwsgi,local7
+logger = {{ uwsgi_logger }}

@@ -6,4 +6,4 @@ pidfile = /tmp/%n.pid
 wsgi-file = referral/wsgi.py
 processes = 4
 virtualenv = {{ er_virtualenv_path }}
-logger = file:/var/log/uwsgi/%n.log
+logger = {{ er_uwsgi_logger }}
