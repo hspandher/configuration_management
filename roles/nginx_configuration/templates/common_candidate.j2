@@ -50,7 +50,7 @@ location /csmresume/ {
     alias {{ csm_path }}/;
 }
 
-location ~ /.*_sitemap.xml {
+location ~ ^/[\w\d-]*_sitemap.xml {
     root {{ sitemaps_path }};
 
     error_page 404 = @listingpages;
@@ -107,8 +107,8 @@ location @browse_jobs_new_error404 {
     rewrite  .*  /job-search/ permanent;
 }
 
-location ~ /sitemaps/(.*.xml) {
-    root {{ sitemaps_2016 }};
+location ~ ^/sitemaps/(.*.xml) {
+    alias {{ sitemaps_2016 }}/$1;
 }
 
 location ~ /(lookup|search/api/v1/keyword)/ {
