@@ -12,6 +12,8 @@
     uwsgi_virtual_path: /home/pavitpandher/Envs/uwsgi
     ruby_shims_path: /home/pavitpandher/.rbenv/shims
     nginx_port: 80
+    nginx_access_logger: /var/log/nginx/access.log
+    nginx_error_logger: /var/log/nginx/error.log
     domain: shine.com
     csm_path: /shineresume/CSM
     sitemaps_path: /sitemaps/sitemaps_xml
@@ -34,9 +36,9 @@
     # - django_setup
     # - ruby_setup
     # - uwsgi
-    - uwsgi_configuration
+    # - uwsgi_configuration
     # - nginx_setup
-    #- nginx_configuration
+    - nginx_configuration
     # - role: rvm_io.rvm1-ruby
     #   becomes: no
     #   tags: ruby
