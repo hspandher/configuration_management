@@ -41,6 +41,14 @@ location /mobile_job_sitemap.xml {
     alias {{ sitemaps_job_path }}/mobile_job_sitemap.xml;
 }
 
+location ~ ^/job_sitemap.xml {
+    alias /sitemaps/sitemaps_job/job_sitemap.xml;
+}
+
+location ~ ^/sitemaps/sitemaps_job/(.*) {
+    alias /sitemaps/sitemaps_job/$1;
+}
+
 if  ($host ~* ^mapi\.)
 {
     rewrite  /robots.txt /robots-mapi.txt;
