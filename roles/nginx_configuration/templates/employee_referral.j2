@@ -1,5 +1,5 @@
 upstream django2 {
-    server unix:///tmp/{{ er_project_name }}.sock;
+    server unix:///var/run/uwsgi/{{ er_project_name }}.sock;
 }
 
 server {

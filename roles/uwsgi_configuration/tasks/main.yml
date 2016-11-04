@@ -2,6 +2,9 @@
 - name: Creating log directory
   file: path=/var/log/uwsgi/ state=directory owner={{server_user}} group={{server_group}} mode=775
 
+- name: Creating uwsgi directory in /var/run
+  file: path=/var/run/uwsgi/ state=directory owner={{server_user}} group={{server_group}} mode=775
+
 - name: Creating log files
   file: path=/var/log/uwsgi/{{item}}.log state=touch owner={{server_user}} group={{server_group}} mode=774
   with_items:
