@@ -13,8 +13,8 @@
     uwsgi_virtual_path: /opt/uwsgi
     ruby_shims_path: /home/pavitpandher/.rbenv/shims
     nginx_port: 80
-    nginx_access_logger: /var/log/nginx/access.log
-    nginx_error_logger: /var/log/nginx/error.log
+    nginx_access_logger: syslog:server=unix:/dev/log,facility=local6,nohostname
+    nginx_error_logger: syslog:server=unix:/dev/log,nohostname
     domain: shine.com
     csm_path: /shineresume/CSM
     sitemaps_path: /sitemaps/sitemaps_xml
