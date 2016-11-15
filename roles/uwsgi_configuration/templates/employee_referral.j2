@@ -9,5 +9,6 @@ max-requests = 1000
 max-requests-delta = 20
 virtualenv = {{ er_virtualenv_path }}
 logger = {{ er_uwsgi_logger }}
+req-logger = {{ er_uwsgi_request_logger }}
 stats = {{ansible_ssh_host}}:9003
 stats-http = true

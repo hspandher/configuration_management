@@ -8,6 +8,7 @@
     project_name: candidate
     project_path: /var/www/site/sumoplus
     uwsgi_logger: syslog:can-uwsgi,local7
+    uwsgi_request_logger: syslog:can-uwsgi,local6
     virtualenv_path: /opt/sumoplus
     uwsgi_virtual_path: /opt/uwsgi
     ruby_shims_path: /home/pavitpandher/.rbenv/shims
@@ -27,7 +28,8 @@
     er_project_name: 'employee_referral'
     er_project_path: /var/www/site/shinereferral/project_referral
     er_virtualenv_path: /opt/shinereferral
-    er_uwsgi_logger: syslog:ererror,local5
+    er_uwsgi_logger: syslog:er-uwsgi,local5
+    er_uwsgi_request_logger: syslog:er-uwsgi,local4
     employee_referral_domain: er.shine.com
     employee_referral_server: http://127.0.0.1:9292
   roles:
