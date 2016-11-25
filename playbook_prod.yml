@@ -1,5 +1,5 @@
 ---
-- hosts: rak_dev
+- hosts: all
   become: yes
   vars:
     username: rak_dev
@@ -38,7 +38,7 @@
     # - django_setup
     # - ruby_setup
     #- uwsgi
-    - uwsgi_configuration
+    #- uwsgi_configuration
     #- nginx_setup
     - nginx_configuration
     # - role: rvm_io.rvm1-ruby

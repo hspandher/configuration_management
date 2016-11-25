@@ -135,6 +135,7 @@ location ~ /(lookup|search/api/v1/keyword)/ {
     uwsgi_param Cookie "";
     uwsgi_cache_valid 200 302 10080m;
     uwsgi_cache_valid 404 1m;
+    uwsgi_cache_key $request_uri;
     uwsgi_hide_header Set-Cookie;
     uwsgi_hide_header Vary;
     uwsgi_ignore_headers Set-Cookie Vary;
