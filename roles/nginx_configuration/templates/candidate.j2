@@ -20,7 +20,11 @@ server {
 
 server {
     listen  {{ nginx_port }};
+    {% if 'candidate_prep_prod' in group_names %}
+    server_name  .{{ ansible_ssh_host }} .{{host_public_ip}};
+    {% else %}
     server_name  .{{ ansible_ssh_host }};
+    {% endif %}
 
     include common_candidate;
 }

@@ -7,21 +7,28 @@
 #[rahul]
 #rahul  ansible_ssh_host=10.24.8.175    ansible_ssh_user=ht
 
-[rak_dev]
-#rak_dev_136 ansible_ssh_host=172.22.65.136   ansible_ssh_user=rak_dev
-#rak_dev_137 ansible_ssh_host=172.22.65.137   ansible_ssh_user=rak_dev
-#rak_dev_138 ansible_ssh_host=172.22.65.138   ansible_ssh_user=rak_dev
-#rak_dev_140 ansible_ssh_host=172.22.65.140   ansible_ssh_user=rak_dev
-#rak_dev_142 ansible_ssh_host=172.22.65.142   ansible_ssh_user=rak_dev
-#rak_dev_147 ansible_ssh_host=172.22.65.147   ansible_ssh_user=rak_dev
-#rak_dev_148 ansible_ssh_host=172.22.65.148   ansible_ssh_user=rak_dev
-#rak_dev_149 ansible_ssh_host=172.22.65.149   ansible_ssh_user=rak_dev
-#rak_dev_201 ansible_ssh_host=172.22.65.201   ansible_ssh_user=rak_dev
-#rak_dev_203 ansible_ssh_host=172.22.65.203   ansible_ssh_user=rak_dev
-#rak_dev_204 ansible_ssh_host=172.22.65.204   ansible_ssh_user=rak_dev
-#rak_dev_227 ansible_ssh_host=172.22.65.227   ansible_ssh_user=rak_dev
-#rak_dev_228 ansible_ssh_host=172.22.65.228   ansible_ssh_user=rak_dev
-#rak_dev_229 ansible_ssh_host=172.22.65.229   ansible_ssh_user=rak_dev
+[candidate_prod]
+#rak_dev_136 ansible_host=172.22.65.136
+#rak_dev_137 ansible_host=172.22.65.137
+#rak_dev_138 ansible_host=172.22.65.138
+#rak_dev_140 ansible_host=172.22.65.140
+#rak_dev_142 ansible_host=172.22.65.142
+#rak_dev_147 ansible_host=172.22.65.147
+#rak_dev_148 ansible_host=172.22.65.148
+#rak_dev_149 ansible_host=172.22.65.149
+#rak_dev_201 ansible_host=172.22.65.201
+#rak_dev_203 ansible_host=172.22.65.203
+#rak_dev_204 ansible_host=172.22.65.204
+#rak_dev_227 ansible_host=172.22.65.227
+#rak_dev_228 ansible_host=172.22.65.228
+#rak_dev_229 ansible_host=172.22.65.229
 
-#prep-rod server
-#rak_dev_202 ansible_ssh_host=172.22.65.202   ansible_ssh_user=rak_dev
+[candidate_prod:vars]
+ansible_ssh_user=rak_dev
+
+[candidate_prep_prod]
+rak_dev_202 ansible_host=172.22.65.202
+
+[candidate_prep_prod:vars]
+ansible_ssh_user=rak_dev
+host_public_ip=124.153.79.202
