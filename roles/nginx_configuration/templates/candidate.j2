@@ -38,7 +38,7 @@ server {
 
 server {
     listen            {{ ssl_port }} ssl;
-    server_name       {{ ssl_domain }};
+    server_name         *.{{ domain }};
 
     ssl on;
     ssl_certificate         /opt/cachingServer/.certs/shine.crt;
